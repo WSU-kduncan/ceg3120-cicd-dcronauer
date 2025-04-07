@@ -18,3 +18,7 @@ lightweight, easy to share and spin up, as well as more efficient to run.
 The link above can be used to install docker desktop. Once you install and run this app, you can use the terminal once 
 Docker desktop is running. It is fairly easy to use when installing using the Docker app. 
 
+### How to build and configure a container to run website using a DockerFile
+
+
+
