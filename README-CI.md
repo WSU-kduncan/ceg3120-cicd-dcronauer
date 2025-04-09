@@ -11,7 +11,7 @@ lightweight, easy to share and spin up, as well as more efficient to run.
 
 ## Setting up your Docker application
 
-### Installing Docker on macOS
+### Installing Docker on macOS - Reference for docker desktop install directly below
 
 [Install Docker macOS](https://docs.docker.com/desktop/setup/install/mac-install/)
 
@@ -91,3 +91,8 @@ ng serve --host 0.0.0.0
 ```
 8. Went into web browser typed in localhost:port and web page came up!
 ![Eagle Image Manual](images/manualEagle.png)
+
+### References used for manual set up
+1. [For steps 2, 6, 7 DEV link provided in class](https://dev.to/rodrigokamada/creating-and-running-an-angular-application-in-a-docker-container-40mk)
+2. ChatGPT used for installing unzip - "how to i install and use unzip in running instance of docker node:18"
+3. For curl, already knew this command as we have done this in project 3, so i reference project 3 README
