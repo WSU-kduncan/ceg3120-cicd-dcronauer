@@ -56,6 +56,11 @@ Digest: sha256:df9fa4e0e39c9b97e30240b5bb1d99bdb861573a82002b2c52ac7d6b8d6d773e
 Status: Downloaded newer image for node:18
 docker.io/library/node:18
 ```
+2. Run image we just pulled
+```
+docker run -it node:18 bash
+```
 
+3. 
 
 
