@@ -89,7 +89,7 @@ cd wsu-hw-ng-main
 npm install
 ng serve --host 0.0.0.0
 ```
-8. Went into web browser typed in localhost:port and web page came up! Also showing terminal as well
+8. Went into web browser typed in localhost:port and web page came up! Also showing terminal as well. Seeing listined at port 4200 tells me that the app is running and listening for requests.
 ![Eagle Image Manual](images/manualEagle.png)<br>
 ![Terminal Image Manual](images/manualTerminalRunning.png)
 
