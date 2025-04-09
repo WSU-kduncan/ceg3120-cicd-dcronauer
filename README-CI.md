@@ -155,10 +155,36 @@ Since I spent all that time testing and setting up a nice manual process... I de
 2. Click "Account Settings" in the nav bar that opens
 3. Then on left there is a section for personal access tokens, click that
 4. Click generate new token button (description: angular, expiration: 90days, Read & Write)
-5. It provides 
+5. It provides a page of a command to run in order to use the access token from your CLI
+  - Run docker login -u ***DockerHubUsernameHere***
+  - provide your docker token
 
 ### Authenticate with DockerHub via CLI
 
+1. First log in
+```
+docker login -u ***DockerHubUsernameHere***
+```
+2. You will be prompted to enter your token in the password prompt next
+```
+i Info → A Personal Access Token (PAT) can be used instead.
+         To create a PAT, visit https://app.docker.com/settings
+         
+         
+Password: 
+Login Succeeded
+```
+
 ### Push container image to DockerHub
+
+1. Need to build to new image name to make it easier to push - name to same name as user/repo. Cheat is to look at their suggested docker push command and take everything in part after push, not including :tagname
+
+```
+docker build -t dockerUser/repoName .
+```
+2. Now push that docker image after you confirm it in docker ps -a. Use the suggested docker command in your repository management page.
+```
+
+```
 
 ### Link to DockerHub repo for this project
