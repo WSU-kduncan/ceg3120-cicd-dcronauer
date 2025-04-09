@@ -131,6 +131,10 @@ docker build -t angular-app .
 ```
 docker run -p 4200:4200 angular-app 
 ```
+
+5. Verified Dockerfile working browser and terminal
+![Eagle Image Docker](images/dockerfileEagle.png)<br>
+![Terminal Image Docker](images/dockerfileTerminal.png)
 ### References
 Since I spent all that time testing and setting up a nice manual process... I decided to have CHATGPT take that documentation and build a Dockerfile with it
 1. Chatgpt "can you take the following documentation and make dockerfile to automate the setup for this app (pasted entire manual section of markdown above steps 1 to 8 but no images)"
