@@ -38,7 +38,7 @@ ecb020c6d613   d79336f4812b   "/docker-entrypoint.…"   9 days ago     Exited (
 b5dbe2c7e7fb   7e1a4e2d11e2   "/hello"                 9 days ago     Exited (0) 9 days ago               jovial_morse
 ```
 
-### How to manually set up a container
+### How to manually set up a container to run angular program
 
 1. Get docker image for node:18 from docker hub
 ```
@@ -61,6 +61,20 @@ docker.io/library/node:18
 docker run -it node:18 bash
 ```
 
-3. 
-
-
+3. Navigate to /usr/src/app - use mkdir to create app directory if needed. I use pwd to show
+that this was made manually on this image (will have to recreate this everytime)
+```
+root@58c38ec9e9c0:/usr/src/app# pwd
+/usr/src/app
+```
+4. Copy angular app from 3120 class git hub using raw (changed /blob/ to /raw/)
+```
+curl -L -o angular.zip https://github.com/pattonsgirl/CEG3120/raw/main/Projects/Project4/angular-bird.zip
+```
+5. Extract contents of file in place (make sure you are in working directory location of where zip file installed)
+   - First need to install unzip
+   - Then need to use unzip to unzip the zip file
+```
+apt-get install unzip
+unzip angular.zip
+```
