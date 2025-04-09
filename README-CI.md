@@ -129,7 +129,7 @@ docker build -t angular-app .
 
 4. Run image - used run from above just change port to 4200 since Dockerfile exposes 4200 - also change name
 ```
-docker run -it -p 4200:4200 angular-app bash
+docker run -p 4200:4200 angular-app 
 ```
 ### References
 Since I spent all that time testing and setting up a nice manual process... I decided to have CHATGPT take that documentation and build a Dockerfile with it
