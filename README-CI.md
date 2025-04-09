@@ -100,7 +100,8 @@ ng serve --host 0.0.0.0
 
 ## Setting up Dockerfile to auotomate the process
 
-1. Explaning steps - This was nicely provided by ChatGPT along with my prompt to build the Dockerfile off my documentation that I built above.
+### Explaining steps 
+This was nicely provided by ChatGPT along with my prompt to build the Dockerfile off my documentation that I built above.
 
 - FROM node:18: We start with the official node:18 image as the base.
 
@@ -122,19 +123,32 @@ ng serve --host 0.0.0.0
 
 - CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "4200"]: Start the Angular development server, listening on all interfaces (0.0.0.0) so that it can be accessed from outside the container.
 
-3. Build image - from directory of docker file on local machine
+### Build image - from directory of docker file on local machine
 ```
 docker build -t angular-app . 
 ```
 
-4. Run image - used run from above just change port to 4200 since Dockerfile exposes 4200 - also change name
+### Run image - used run from above just change port to 4200 since Dockerfile exposes 4200 - also change name
 ```
 docker run -p 4200:4200 angular-app 
 ```
 
-5. Verified Dockerfile working browser and terminal
+### Verified Dockerfile working browser and terminal
 ![Eagle Image Docker](images/dockerfileEagle.png)<br>
 ![Terminal Image Docker](images/dockerfileTerminal.png)
+
 ### References
 Since I spent all that time testing and setting up a nice manual process... I decided to have CHATGPT take that documentation and build a Dockerfile with it
 1. Chatgpt "can you take the following documentation and make dockerfile to automate the setup for this app (pasted entire manual section of markdown above steps 1 to 8 but no images)"
+
+## Working with your DockerHub Repository
+
+### Create Public Repo in DockerHub
+
+### Create PAT for authentication
+
+### Authenticate with DockerHub via CLI
+
+### Push container image to DockerHub
+
+### Link to DockerHub repo for this project
