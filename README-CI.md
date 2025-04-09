@@ -89,8 +89,9 @@ cd wsu-hw-ng-main
 npm install
 ng serve --host 0.0.0.0
 ```
-8. Went into web browser typed in localhost:port and web page came up!
-![Eagle Image Manual](images/manualEagle.png)
+8. Went into web browser typed in localhost:port and web page came up! Also showing terminal as well
+![Eagle Image Manual](images/manualEagle.png)<br>
+![Terminal Image Manual](images/manualTerminalRunning.png)
 
 ### References used for manual set up
 1. [For steps 2, 6, 7 DEV link provided in class](https://dev.to/rodrigokamada/creating-and-running-an-angular-application-in-a-docker-container-40mk)
