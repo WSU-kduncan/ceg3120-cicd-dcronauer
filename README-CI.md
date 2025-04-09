@@ -58,7 +58,7 @@ docker.io/library/node:18
 ```
 2. Run image we just pulled
 ```
-docker run -it node:18 bash
+docker run -it -p 4201:4200 node:18 bash
 ```
 
 3. Navigate to /usr/src/app - use mkdir to create app directory if needed. I use pwd to show
@@ -77,4 +77,15 @@ curl -L -o angular.zip https://github.com/pattonsgirl/CEG3120/raw/main/Projects/
 ```
 apt-get install unzip
 unzip angular.zip
+```
+6. Install angular
+```
+npm install -g @angular/cli
+```
+
+7. Change directory to folder holding angular.json, do npm install, then do ng serve default port is 4200
+```
+cd wsu-hw-ng-main
+npm install
+ng serve --host 0.0.0.0
 ```
