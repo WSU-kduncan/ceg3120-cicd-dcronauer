@@ -184,7 +184,9 @@ docker build -t dockerUser/repoName .
 ```
 2. Now push that docker image after you confirm it in docker ps -a. Use the suggested docker command in your repository management page.
 ```
-
+docker push dockerUser/repoName
 ```
 
 ### Link to DockerHub repo for this project
+
+[Link DockerHub](https://hub.docker.com/repository/docker/dcronauer2025/cronauer-ceg3120/general)
