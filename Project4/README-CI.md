@@ -1,4 +1,4 @@
-# Part 1 Dockerize
+# Part 1 Dockerize It
 
 ## CI Project Overview
 
