@@ -56,7 +56,7 @@ Digest: sha256:df9fa4e0e39c9b97e30240b5bb1d99bdb861573a82002b2c52ac7d6b8d6d773e
 Status: Downloaded newer image for node:18
 docker.io/library/node:18
 ```
-2. Run image we just pulled
+2. Run image we just pulled - used -p 4201:4200 to define port 4201 as the port for localhost and map to 4200 on the docker instance
 ```
 docker run -it -p 4201:4200 node:18 bash
 ```
@@ -89,3 +89,4 @@ cd wsu-hw-ng-main
 npm install
 ng serve --host 0.0.0.0
 ```
+8. Went into web browser typed in localhost:port and web page came up!
