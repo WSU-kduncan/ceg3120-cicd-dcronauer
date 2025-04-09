@@ -90,3 +90,4 @@ npm install
 ng serve --host 0.0.0.0
 ```
 8. Went into web browser typed in localhost:port and web page came up!
+![Eagle Image Manual](images/manualEagle.png)
