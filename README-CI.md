@@ -144,8 +144,18 @@ Since I spent all that time testing and setting up a nice manual process... I de
 ## Working with your DockerHub Repository
 
 ### Create Public Repo in DockerHub
+1. Log into DockerHub
+2. Click Repositories option in nav bar on left
+3. You will see a list of your repositories likely empty, then click the blue button "Create a repository"
+4. This will bring you to another page where you create a repo name, descrioption, public/private and click Create.
+5. Your repository will now be ready to use
 
 ### Create PAT for authentication
+1. In DockerHub when signed in click the circle with your account name
+2. Click "Account Settings" in the nav bar that opens
+3. Then on left there is a section for personal access tokens, click that
+4. Click generate new token button (description: angular, expiration: 90days, Read & Write)
+5. It provides 
 
 ### Authenticate with DockerHub via CLI
 
