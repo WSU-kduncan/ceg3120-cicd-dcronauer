@@ -97,3 +97,40 @@ ng serve --host 0.0.0.0
 1. [For steps 2, 6, 7 DEV link provided in class](https://dev.to/rodrigokamada/creating-and-running-an-angular-application-in-a-docker-container-40mk)
 2. ChatGPT used for installing unzip - "how to i install and use unzip in running instance of docker node:18"
 3. For curl, already knew this command as we have done this in project 3, so i reference project 3 README
+
+## Setting up Dockerfile to auotomate the process
+
+1. Explaning steps - This was nicely provided by ChatGPT along with my prompt to build the Dockerfile off my documentation that I built above.
+
+- FROM node:18: We start with the official node:18 image as the base.
+
+- WORKDIR /usr/src/app: Set the working directory where all operations will take place.
+
+- RUN apt-get update && apt-get install -y unzip curl: Install unzip (to extract the downloaded zip) and curl (to fetch the Angular project from GitHub).
+
+- RUN curl -L -o angular.zip ...: Use curl to download the angular.zip file from the provided GitHub link.
+
+- RUN unzip angular.zip && rm angular.zip: Unzip the project files and remove the zip file afterward.
+
+- RUN npm install -g @angular/cli: Install the Angular CLI globally to run ng serve.
+
+- WORKDIR /usr/src/app/wsu-hw-ng-main: Change to the directory where angular.json is located (the Angular project directory).
+
+- RUN npm install: Install the project dependencies listed in package.json.
+
+- EXPOSE 4200: Expose port 4200 (which is the default port for Angular apps).
+
+- CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "4200"]: Start the Angular development server, listening on all interfaces (0.0.0.0) so that it can be accessed from outside the container.
+
+3. Build image - from directory of docker file on local machine
+```
+docker build -t angular-app . 
+```
+
+4. Run image - used run from above just change port to 4200 since Dockerfile exposes 4200 - also change name
+```
+docker run -it -p 4200:4200  bash
+```
+### References
+Since I spent all that time testing and setting up a nice manual process... I decided to have CHATGPT take that documentation and build a Dockerfile with it
+1. Chatgpt "can you take the following documentation and make dockerfile to automate the setup for this app (pasted entire manual section of markdown above steps 1 to 8 but no images)"
