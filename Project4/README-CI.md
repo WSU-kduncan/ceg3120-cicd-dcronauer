@@ -1,4 +1,4 @@
-# Part 1 Dockerize
+# Part 1 Dockerize It
 
 ## CI Project Overview
 
@@ -187,8 +187,20 @@ docker build -t dockerUser/repoName .
 docker push dockerUser/repoName
 ```
 
+### Pull if needed
+
+1. Run docker pull - in our case we are ignoring the tag name, we will just pull latest
+
+```
+docker pull user/repo:latest
+```
+
 ### Link to DockerHub repo for this project
 
 [Link DockerHub](https://hub.docker.com/repository/docker/dcronauer2025/cronauer-ceg3120/general)
+
+### References DockerHub
+
+1. Used class notes, class video, and played around on the website.
 
 # Part Two Start
