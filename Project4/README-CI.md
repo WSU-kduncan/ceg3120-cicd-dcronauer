@@ -203,4 +203,9 @@ docker pull user/repo:latest
 
 1. Used class notes, class video, and played around on the website.
 
+# Part 2 - GitHub Actions and DockerHub
+
+## Create PAT on docker hub for the GitHub actions
+
+1. Follow the steps in part one for making a Docker Personal access token. Just in this case we will make one scoped for github actions.
 # Part Two Start
