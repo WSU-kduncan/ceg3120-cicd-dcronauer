@@ -289,7 +289,7 @@ password: ${{ secrets.DOCKER_TOKEN }}
 1. Check actions tab in your github repo, then click build<br>
 ![GitHub Action Check](images/actionSuccess.png)<br>
 2. Pull image from dockerhub and run image, then check on web browser if image for website pops us. (Use terminal)
-  - Use instructions to login to Docker on your terminal and pull latest image [Sections above]((#authenticate-with-dockerhub-via-cli))
+  - Use instructions to login to Docker on your terminal and pull latest image, reference authentication and pull sections above
 3. Use this command, I got the image name from the result of docker pull.
 ```
 docker run -p 4200:4200 dcronauer2025/cronauer-ceg3120:latest
