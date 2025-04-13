@@ -256,7 +256,11 @@ mkdir workflows
 2. Configure the .yml file to desired configuration and place in the .github/workflows directory.
 3. Test this by commiting locally then pushing to the public repository and see if an action was triggered on push.
 
-## 
+## Verify that Action and Docker Image Work
+
+1. Check actions tab in your github repo, then click build<br>
+![GitHub Action Check](images/actionSuccess.png))
+
 
 ## References Part 2
 
@@ -266,7 +270,7 @@ mkdir workflows
 can you use the following text from github on making secrets and provide it in .md format so i can copy into a readme. (pasted steps 1-8)
 ```
 3. [Used this for building the .yml file](https://github.com/marketplace/actions/build-and-push-docker-images)
-4. Used CHATGPT for some more guidance as well to break up into chunks to see if i missed anything
+4. Used CHATGPT for some more guidance as well to break up into chunks to see if i missed anything (step three of output helped create .yml file)
 ```
 can you give me steps for how to figure this out 
 Part 2 - GitHub Actions and DockerHub
