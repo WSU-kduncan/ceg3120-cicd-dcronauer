@@ -220,9 +220,9 @@ docker pull user/repo:latest
   
 3. In the **Security** section of the sidebar, select **Secrets and variables**, then click **Actions**.
 
-4. Click the **Secrets** tab.
+4. Click the **Secrets** tab (or variables if you want to make a variable instead).
 
-5. Click **New repository secret**.
+5. Click **New repository secret** (or new variable if in variables tab).
 
 6. In the **Name** field, type a name for your secret.
 
@@ -230,6 +230,12 @@ docker pull user/repo:latest
 
 8. Click **Add secret**.
 
+***NOTE Variables are in tab right next to secrets if you want to add username as variable***
+
+## Secrets/Variables created
+
+1. ***Secret*** PAT set with secret ***DOCKERHUB_PAT***
+2. ***Variable*** Username set with variable ***DOCKERHUB_USER***
 
 ## References Part 2
 
