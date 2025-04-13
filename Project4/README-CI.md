@@ -237,6 +237,27 @@ docker pull user/repo:latest
 1. ***Secret*** PAT set with secret ***DOCKER_TOKEN***
 2. ***Secret*** Username set with variable ***DOCKER_USERNAME***
 
+## Creating Workflow using GitHub actions to automate Docker Image push to DockerHub
+
+### What does the github action do in this project?
+
+- ***Trigger*** The action is simple, the workflows action should trigger on push of commits to remote repository on github.
+- ***Action*** We want to take the current Dockerfile in project4 folder, build an image off of the current contents in that file, then send it to DockerHub using the secrets defined for my username and PAT.
+- ***Other requirements*** The workflow should use other prebuilt github actions rather than manual RUN commands within the .yml file. 
+
+### Setup items for workflow to work as an action in your GitHub repository
+
+1. At root of project repository we need to make a .github/workflows directory in which we will place the .yml file that will run the github action desired.
+```
+mkdir .github
+cd .github
+mkdir workflows
+```
+2. Configure the .yml file to desired configuration and place in the .github/workflows directory.
+3. Test this by commiting locally then pushing to the public repository and see if an action was triggered on push.
+
+
+
 ## References Part 2
 
 1. [How to set up secrets](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions)
