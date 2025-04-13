@@ -208,4 +208,9 @@ docker pull user/repo:latest
 ## Create PAT on docker hub for the GitHub actions
 
 1. Follow the steps in part one for making a Docker Personal access token. Just in this case we will make one scoped for github actions.
-# Part Two Start
+2. I decided to give it Read & Write and only last for 30 days. I called it github-action.
+
+## References Part 2
+
+1. [How to set up secrets](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions)
+2. PAT last section
