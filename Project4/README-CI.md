@@ -237,7 +237,7 @@ docker pull user/repo:latest
 1. ***Secret*** PAT set with secret ***DOCKER_TOKEN***
 2. ***Secret*** Username set with variable ***DOCKER_USERNAME***
 
-## Creating Workflow using GitHub actions to automate Docker Image push to DockerHub
+## Creating Workflow using GitHub actions to automate Docker Image push to DockerHub 
 
 ### What does the github action do in this project?
 
@@ -256,7 +256,35 @@ mkdir workflows
 2. Configure the .yml file to desired configuration and place in the .github/workflows directory.
 3. Test this by commiting locally then pushing to the public repository and see if an action was triggered on push.
 
-## Verify that Action and Docker Image Work
+### How to change .yml file and changes new GitHub repository if needed
+
+1. Add secrets review the structure in .yml file
+```
+username: ${{ secrets.DOCKER_USERNAME }}
+password: ${{ secrets.DOCKER_TOKEN }}
+```
+  - The new github repository will have to name two secrets matching the names here with the DockerHub repository credentials that you want to access and push an image to
+2. Ensure that branch main is the branch of origin on the new repo, otherwise you will have to change to the one that you want commits to trigger the action on.
+3. Update the context, your Dockerfile might be in a different spot in the new repository. You will have to provice path to it if it changes.
+4. Pay attention to the dockerhub repository. If it changed you will need to update this, also ensure that you use latest, this will make your push and pulls of the most recent image easy to automate.
+   
+
+### Location of .yml file
+![Path to dockerBuild.yml](../.github/workflows/dockerBuild.yml)
+
+### Explanation of the .yml file
+
+- Name is just description for the workflow action
+- On is the trigger, in our case pushes to main
+- jobs tells us the jobs that will be run and sequence in which they will run. Our action is fairly simple so there is only one job
+- permissions tells us what we need in our case read for contents and write for packages
+- steps are the github actions used to rebuild the image and push to docker hub
+  - ```actions/checkout@v4``` is the checkout action - this checkout the current repositories code so it can be available to the workflow for use
+  - ```docker/login-action@v3``` is the action used to authenticate with docker hub. We are using our secrets here to validate
+  - ```docker/build-push-action@v5``` is dockers action to build and push an image to dockerhub if log is authenticated. You may need to pass a context so this action knows where the desired Dockerfile is. You should also define a tag name properly so it is pushed to the correct repository with the correct tag name.
+
+
+### Verify that Action and Docker Image Work
 
 1. Check actions tab in your github repo, then click build<br>
 ![GitHub Action Check](images/actionSuccess.png)<br>
