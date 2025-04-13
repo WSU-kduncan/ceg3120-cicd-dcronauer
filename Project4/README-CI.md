@@ -210,7 +210,32 @@ docker pull user/repo:latest
 1. Follow the steps in part one for making a Docker Personal access token. Just in this case we will make one scoped for github actions.
 2. I decided to give it Read & Write and only last for 30 days. I called it github-action.
 
+## Creating Secrets in GitHub
+
+### To add secrets to your GitHub repository for use in GitHub Actions:
+
+1. On GitHub, navigate to the main page of the repository.
+
+2. Under your repository name, click **Settings**. This will be on the nav bar with code, issues, actions, request, etc.
+  
+3. In the **Security** section of the sidebar, select **Secrets and variables**, then click **Actions**.
+
+4. Click the **Secrets** tab.
+
+5. Click **New repository secret**.
+
+6. In the **Name** field, type a name for your secret.
+
+7. In the **Secret** field, enter the value for your secret.
+
+8. Click **Add secret**.
+
+
 ## References Part 2
 
 1. [How to set up secrets](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions)
-2. PAT last section
+2. Used chatgpt on the link above to make documentation to put in github page. Prompt below (i pasted the 8 steps for making a secret in a repo using the link above for setting up secrets. 
+```
+can you use the following text from github on making secrets and provide it in .md format so i can copy into a readme. (pasted steps 1-8)
+```
+4. PAT last section
