@@ -234,8 +234,8 @@ docker pull user/repo:latest
 
 ## Secrets/Variables created
 
-1. ***Secret*** PAT set with secret ***DOCKERHUB_PAT***
-2. ***Variable*** Username set with variable ***DOCKERHUB_USER***
+1. ***Secret*** PAT set with secret ***DOCKER_TOKEN***
+2. ***Secret*** Username set with variable ***DOCKER_USERNAME***
 
 ## References Part 2
 
