@@ -256,7 +256,7 @@ mkdir workflows
 2. Configure the .yml file to desired configuration and place in the .github/workflows directory.
 3. Test this by commiting locally then pushing to the public repository and see if an action was triggered on push.
 
-
+## 
 
 ## References Part 2
 
@@ -265,4 +265,5 @@ mkdir workflows
 ```
 can you use the following text from github on making secrets and provide it in .md format so i can copy into a readme. (pasted steps 1-8)
 ```
+3. [Used this for building the .yml file](https://github.com/marketplace/actions/build-and-push-docker-images)
 4. PAT last section
