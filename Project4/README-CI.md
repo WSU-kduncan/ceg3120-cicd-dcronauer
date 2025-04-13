@@ -259,7 +259,11 @@ mkdir workflows
 ## Verify that Action and Docker Image Work
 
 1. Check actions tab in your github repo, then click build<br>
-![GitHub Action Check](images/actionSuccess.png))
+![GitHub Action Check](images/actionSuccess.png)<br>
+2. Pull image from dockerhub and run image, then check on webbrowser if image for website pops us.
+  - Use instructions to login to Docker on your terminal and pull latest image [here](### Authenticate with DockerHub via CLI)
+  
+
 
 
 ## References Part 2
@@ -283,4 +287,3 @@ Tasks
         workflow should utilize repository secrets for authentication
         workflow should utilize actions as opposed to run commands
 ```
-6. PAT last section
