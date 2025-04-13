@@ -266,4 +266,17 @@ mkdir workflows
 can you use the following text from github on making secrets and provide it in .md format so i can copy into a readme. (pasted steps 1-8)
 ```
 3. [Used this for building the .yml file](https://github.com/marketplace/actions/build-and-push-docker-images)
-4. PAT last section
+4. Used CHATGPT for some more guidance as well to break up into chunks to see if i missed anything
+```
+can you give me steps for how to figure this out 
+Part 2 - GitHub Actions and DockerHub
+Tasks
+
+    Create an appropriately scoped Personal Access Token for GitHub Actions to use to access your DockerHub repository
+    In your GitHub repository, configure GitHub Action Secrets named DOCKER_USERNAME and DOCKER_TOKEN containing your DockerHub username & DockerHub access token, respectively.
+    Set up a GitHub Actions workflow to build and push container images to your DockerHub repository
+        workflow should trigger when a commit is pushed to the main branch
+        workflow should utilize repository secrets for authentication
+        workflow should utilize actions as opposed to run commands
+```
+6. PAT last section
