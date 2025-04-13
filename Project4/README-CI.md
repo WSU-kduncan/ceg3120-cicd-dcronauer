@@ -260,12 +260,17 @@ mkdir workflows
 
 1. Check actions tab in your github repo, then click build<br>
 ![GitHub Action Check](images/actionSuccess.png)<br>
-2. Pull image from dockerhub and run image, then check on webbrowser if image for website pops us.
-  - Use instructions to login to Docker on your terminal and pull latest image [here](### Authenticate with DockerHub via CLI)
+2. Pull image from dockerhub and run image, then check on web browser if image for website pops us. (Use terminal)
+  - Use instructions to login to Docker on your terminal and pull latest image [here](###Authenticate-with-DockerHub-via-CLI)
+3. Use this command, I got the image name from the result of docker pull.
+```
+docker run -p 4200:4200 dcronauer2025/cronauer-ceg3120:latest
+```
+![Image success compile](images/dockerPullRun.png)<br>
+4. Now verify in browser on port 4200
+![EagleSaysHi](images/dockerPullSiteSuccess.png)<br>
+
   
-
-
-
 ## References Part 2
 
 1. [How to set up secrets](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions)
