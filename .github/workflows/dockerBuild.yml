@@ -26,7 +26,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./Project4/
           push: true
           tags: dcronauer2025/cronauer-ceg3120:latest
 
