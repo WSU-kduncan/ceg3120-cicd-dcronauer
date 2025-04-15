@@ -5,19 +5,16 @@ FROM node:18
 WORKDIR /usr/src/app
 
 # Install unzip (needed for unzipping the downloaded angular.zip)
-RUN apt-get update && apt-get install -y unzip curl
+# RUN apt-get update && apt-get install -y unzip curl
 
-# Download the Angular project zip from GitHub
-RUN curl -L -o angular.zip https://github.com/pattonsgirl/CEG3120/raw/main/Projects/Project4/angular-bird.zip
-
-# Unzip the downloaded file
-RUN unzip angular.zip && rm angular.zip
+# copy everything
+COPY . .
 
 # Install Angular CLI globally
 RUN npm install -g @angular/cli
 
 # Set the working directory to the Angular project directory
-WORKDIR /usr/src/app/wsu-hw-ng-main
+WORKDIR /usr/src/app/angular-site/wsu-hw-ng-main
 
 # Install the dependencies for the Angular project
 RUN npm install
