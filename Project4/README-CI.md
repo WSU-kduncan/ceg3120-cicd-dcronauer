@@ -85,6 +85,7 @@ ng serve --host 0.0.0.0
 1. [For steps 2, 6, 7 DEV link provided in class](https://dev.to/rodrigokamada/creating-and-running-an-angular-application-in-a-docker-container-40mk)
 2. ChatGPT used for installing unzip - "how to i install and use unzip in running instance of docker node:18"
 3. For curl, already knew this command as we have done this in project 3, so i reference project 3 README
+4. I got feedback on MS1 that the method I documented here is not exactly correct. The idea is we want to capture changes to the repo. In my mind, you would zip of the contexts of the project whenever you made a commit, but this would be impractical. I did not go about redocumenting things, because i had a process working with actions and everything. However, I did change my Dockerfile to copy from local repository to docker image on image build.
 
 ## Setting up Dockerfile to auotomate the process
 
