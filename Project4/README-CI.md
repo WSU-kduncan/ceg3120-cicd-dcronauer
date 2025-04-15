@@ -21,21 +21,9 @@ Docker desktop app needs to be running.
 
 ### Verify Docker Installed and Running
 
-After you run docker go to terminal and type this command, from the result you can determine if docker is running and also what
-docker images are available for use.
+After you run docker go to terminal and type this command, from the result you can determine if docker is up and if any containers are running.
 ```
-danielcronauer@Daniel-2 ceg3120-cicd-dcronauer % docker ps -a
-CONTAINER ID   IMAGE          COMMAND                  CREATED        STATUS                    PORTS     NAMES
-565baa7206c4   ubuntu         "/bin/bash"              44 hours ago   Up 44 hours                         awesome_spence
-3e8008e40372   firstimage     "/bin/bash"              6 days ago     Exited (0) 6 days ago               confident_hugle
-4b163b1bf30d   ubuntu         "/bin/bash"              7 days ago     Exited (127) 7 days ago             brave_thompson
-3cdda882b59f   ubuntu         "/bin/bash"              7 days ago     Exited (0) 7 days ago               priceless_banzai
-c644f9c74ad8   ubuntu         "/bin/bash"              7 days ago     Exited (0) 7 days ago               hardcore_kalam
-b60037561a48   ubuntu         "/bin/bash"              8 days ago     Exited (1) 8 days ago               ecstatic_nobel
-d74f56cffddd   ubuntu         "/bin/bash"              8 days ago     Exited (0) 8 days ago               sad_lehmann
-0fa316fb8bfc   d79336f4812b   "/docker-entrypoint.…"   9 days ago     Exited (0) 9 days ago               cranky_ganguly
-ecb020c6d613   d79336f4812b   "/docker-entrypoint.…"   9 days ago     Exited (2) 9 days ago               relaxed_lovelace
-b5dbe2c7e7fb   7e1a4e2d11e2   "/hello"                 9 days ago     Exited (0) 9 days ago               jovial_morse
+docker info 
 ```
 
 ### How to manually set up a container to run angular program
@@ -197,7 +185,7 @@ docker pull user/repo:latest
 
 ### Link to DockerHub repo for this project
 
-[Link DockerHub](https://hub.docker.com/repository/docker/dcronauer2025/cronauer-ceg3120/general)
+[Link DockerHub](https://hub.docker.com/r/dcronauer2025/cronauer-ceg3120/tags)
 
 ### References DockerHub
 
