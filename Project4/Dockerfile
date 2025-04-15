@@ -4,8 +4,8 @@ FROM node:18
 # Set the working directory inside the container
 WORKDIR /usr/src/app
 
-# Install unzip (needed for unzipping the downloaded angular.zip)
-# RUN apt-get update && apt-get install -y unzip curl
+# Just update this is lightweight docker container
+RUN apt-get update
 
 # copy everything
 COPY . .
