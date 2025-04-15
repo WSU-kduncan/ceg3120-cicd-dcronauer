@@ -96,15 +96,13 @@ This was nicely provided by ChatGPT along with my prompt to build the Dockerfile
 
 - WORKDIR /usr/src/app: Set the working directory where all operations will take place.
 
-- RUN apt-get update && apt-get install -y unzip curl: Install unzip (to extract the downloaded zip) and curl (to fetch the Angular project from GitHub).
+- RUN apt-get update - Given the changes i made on second go around, just update, no other libraries needed.
 
-- RUN curl -L -o angular.zip ...: Use curl to download the angular.zip file from the provided GitHub link.
-
-- RUN unzip angular.zip && rm angular.zip: Unzip the project files and remove the zip file afterward.
+- COPY . . copies everything from your current local working directory to the WORKDIR defined above for docker container. I changed this method based on Professor Duncan's suggestion.
 
 - RUN npm install -g @angular/cli: Install the Angular CLI globally to run ng serve.
 
-- WORKDIR /usr/src/app/wsu-hw-ng-main: Change to the directory where angular.json is located (the Angular project directory).
+- WORKDIR /usr/src/app/angular-site/wsu-hw-ng-main: Change to the directory where angular.json is located (the Angular project directory).
 
 - RUN npm install: Install the project dependencies listed in package.json.
 
@@ -129,6 +127,7 @@ docker run -p 4200:4200 angular-app
 ### References
 Since I spent all that time testing and setting up a nice manual process... I decided to have CHATGPT take that documentation and build a Dockerfile with it
 1. Chatgpt "can you take the following documentation and make dockerfile to automate the setup for this app (pasted entire manual section of markdown above steps 1 to 8 but no images)"
+2. Based on Professor Duncan's suggestion I used COPY . . instead of my method to pull .zip file using wget. 
 
 ## Working with your DockerHub Repository
 
