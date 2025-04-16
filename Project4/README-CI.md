@@ -27,13 +27,13 @@ in the angular-site folder on the repository.
 
 ```mermaid
 flowchart TD
-    Dev[Developer Pushes Code to GitHub - main branch]
-    GitHub[GitHub Repository]
-    Workflow[GitHub Action Triggered - dockerBuild.yml]
-    Checkout[Step: Checkout Code - actions/checkout@v4]
-    DockerLogin[Step: Login to DockerHub - docker/login-action@v3]
-    BuildPush[Step: Build & Push Docker Image -docker/build-push-action@v5]
-    DockerHub[DockerHub Repository - Updated Image]
+    Dev[Developer Pushes Commit to GitHub - main branch]
+    GitHub[GitHub Repository has .github/workflows/ directory with dockerBuild.yml]
+    Workflow[GitHub Action Triggered runs code - dockerBuild.yml]
+    Checkout[Step: Checkout Code pulls repository assets for later reference- actions/checkout@v4]
+    DockerLogin[Step: Login to DockerHub - use github secrets for username and PAT - docker/login-action@v3]
+    BuildPush[Step: Build & Push Docker Image after authentication build and push image from Dockerfile referenced in your action. This should update off the angular project built in your repository -docker/build-push-action@v5]
+    DockerHub[DockerHub Repository - Updated Image pushed and avialable on DockerHub under repository defined and latest tag]
 
     Dev --> GitHub
     GitHub --> Workflow
