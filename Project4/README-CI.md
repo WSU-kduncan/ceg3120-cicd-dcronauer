@@ -11,7 +11,7 @@ lightweight, easy to share and spin up, as well as more efficient to run. Once w
 runs, and listens on port4200. The angular server will listen on local host and serve up website requests locally. We also 
 want to have changes saved on the repository update in Github. We utilize git hub workflow actions to listen for commits on the
 main branch. When this occurs, it takes that Dockerfile built and then creates a new image based on the angular project currently
-in the angular-site folder on the repository.
+in the angular-site folder on the repository. That image is then pushed to DockerHub in a predefined DockerHub repository under the latest tag. 
 
 ## Tools used
 
