@@ -33,7 +33,7 @@ flowchart TD
     Checkout[Step: Checkout Code pulls repository assets for later reference- actions/checkout@v4]
     DockerLogin[Step: Login to DockerHub - use github secrets for username and PAT - docker/login-action@v3]
     BuildPush[Step: Build & Push Docker Image after authentication build and push image from Dockerfile referenced in your action. This should update off the angular project built in your repository -docker/build-push-action@v5]
-    DockerHub[DockerHub Repository - Updated Image pushed and avialable on DockerHub under repository defined and latest tag]
+    DockerHub[DockerHub Repository - Updated Image pushed and available on DockerHub under repository defined and latest tag]
 
     Dev --> GitHub
     GitHub --> Workflow
@@ -48,7 +48,9 @@ flowchart TD
 ```
 can you take these requirements. 
 
-Include a diagram (or diagrams) of the continuous integration process configured in this project. It should (at minimum) address how the developer changing code results in a new image available in a DockerHub repository.
+Include a diagram (or diagrams) of the continuous integration process configured in this project.
+It should (at minimum) address how the developer changing code results in a new image
+available in a DockerHub repository.
 
  and make mermaid diagram off of the documentation pasted below
 (raw copy of README-CI.md)
