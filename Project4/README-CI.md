@@ -15,16 +15,45 @@ in the angular-site folder on the repository.
 
 ## Tools used
 
-1.***Github** Of course we need a publically available Github repository to store the angular website, Dockefile, and workflow .yml file.
+1. ***Github*** Of course we need a publically available Github repository to store the angular website, Dockefile, and workflow .yml file.
 2. ***.github/workflows/filename.yml*** This .yml file is used to tell your github actions what triggers to listen for and the jobs and steps involved to respond to that trigger event.
-3. 2. ***Github workflow actions*** uses the .yml in /.github/workflows from root of repository. This .yml file defines a trigger point, jobs to run, in our case checkout the repo, loginto dockerhub, build image based off Dockerfile in github repository and then push to dockerhub repository. This action is the part that updates our image everytime we commit in order to capture potential changes to our website. This allows for automation of the project. There are other github actions that you can refer n order to streamline your workflow action. For example actions/checkout@v4 checkouts the repository that just triggered a workflow action in order to reference the files in that repository. 
+3. ***Github workflow actions*** uses the .yml in /.github/workflows from root of repository. This .yml file defines a trigger point, jobs to run, in our case checkout the repo, loginto dockerhub, build image based off Dockerfile in github repository and then push to dockerhub repository. This action is the part that updates our image everytime we commit in order to capture potential changes to our website. This allows for automation of the project. There are other github actions that you can refer n order to streamline your workflow action. For example actions/checkout@v4 checkouts the repository that just triggered a workflow action in order to reference the files in that repository. 
 4. ***Docker containers*** uses containers to define a minimal setup to run our website in controlled docker image that allows us to push this image to any machine and run it. These container images will install a minimal OS install and run inside your current OS. Often these containers focus on serving a specific process or service.
 5. ***DockerHub*** acts like Github for containers. The github action workflow aims capture changes to the website folders in the github repository.  The workflow then builds a new docker container image with angular project updated and push it to a DockerHub repository in order for other machines to easily pull that image. In our case in project 3 you would have an easy place to call the same image for all three web servers and run the docker container. This is a nice device agnostic method for having a clean build and not introduce depenency issues on you local device. Just run the image and prosper. 
 6. ***Dockerfile*** this is a file that is used to build a new image, or extend another image. You can install your needed libraries, files, etc and then serve the process/service that you want the docker image to handle. In our case an angular website. 
 7. ***Angular*** We install angular in order to have an easy way to set up and serve a website for access on a webbroswer. This is a JS implementation for designing and serving a website using a JS library.
 
-
 ## Diagram of project
+
+```mermaid
+flowchart TD
+    Dev[Developer Pushes Code to GitHub - main branch]
+    GitHub[GitHub Repository]
+    Workflow[GitHub Action Triggered - dockerBuild.yml]
+    Checkout[Step: Checkout Code - actions/checkout@v4]
+    DockerLogin[Step: Login to DockerHub - docker/login-action@v3]
+    BuildPush[Step: Build & Push Docker Image -docker/build-push-action@v5]
+    DockerHub[DockerHub Repository - Updated Image]
+
+    Dev --> GitHub
+    GitHub --> Workflow
+    Workflow --> Checkout
+    Checkout --> DockerLogin
+    DockerLogin --> BuildPush
+    BuildPush --> DockerHub
+```
+
+## References
+1. Chatgpt prompt
+```
+can you take these requirements. 
+
+Include a diagram (or diagrams) of the continuous integration process configured in this project. It should (at minimum) address how the developer changing code results in a new image available in a DockerHub repository.
+
+ and make mermaid diagram off of the documentation pasted below
+(raw copy of README-CI.md)
+```
+# Part 3 - Project Description and Diagram
 
 
 # Part 1 Dockerize It
