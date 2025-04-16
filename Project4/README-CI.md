@@ -1,13 +1,29 @@
-# Part 1 Dockerize It
+# Part 3 - Project Description and Diagram
 
-## CI Project Overview
+## CI Project Overview goal
 
 The intent of this project is to step away from AWS for a brief second in order to learn how to use Docker. 
 This tool provides another way to spin up builds quickly and efficiently. Docker allows you to build up images,
 define setup and then save that image for yourself and others to use. You or others can layer their own builds on top of 
-this image and expand it out for other purposes. Docker containers are nice since they do not use the same process
+an image and expand it out for other purposes. Docker containers are nice since they do not use the same process
 as Virtual Instance machines that allocate CPU and RAM specifically for that instance. This allows Docker to be more
-lightweight, easy to share and spin up, as well as more efficient to run.
+lightweight, easy to share and spin up, as well as more efficient to run. Once we have a working Docker file that builds,
+runs, and listens on port4200. The angular server will listen on local host and serve up website requests locally. We also 
+want to have changes saved on the repository update in Github. We utilize git hub workflow actions to listen for commits on the
+main branch. When this occurs, it takes that Dockerfile built and then creates a new image based on the angular project currently
+in the angular-site folder on the repository.
+
+## Tools used
+
+1. ***Github workflow actions*** uses the .yml in /.github/workflows from root of directory. This .yml file defines a trigger point, jobs to run, in our
+case checkout the repo, loginto dockerhub, build image based off Dockerfile in github repository and then push to dockerhub repository. This action is the part that updates our image everytime we commit in order to capture potential changes to our website. This allows for automation of the project.
+2. ***Docker and DockerHub*** uses docker containers to define a minimal setup to run our website in controlled docker image that allows us to push this image to any machine and run it. DockerHub acts like github for containers. That way we can 
+
+
+## Diagram of project
+
+
+# Part 1 Dockerize It
 
 ## Setting up your Docker application
 
