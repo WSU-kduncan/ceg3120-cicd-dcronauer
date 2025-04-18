@@ -55,8 +55,6 @@ available in a DockerHub repository.
  and make mermaid diagram off of the documentation pasted below
 (raw copy of README-CI.md)
 ```
-# Part 3 - Project Description and Diagram
-
 
 # Part 1 Dockerize It
 
