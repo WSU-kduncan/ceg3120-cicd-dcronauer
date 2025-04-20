@@ -26,7 +26,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            dcronauer25/cronauer-ceg3120 
+            dcronauer2025/cronauer-ceg3120 
           tags: |
             type=schedule
             type=ref,event=branch
