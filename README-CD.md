@@ -25,6 +25,8 @@ git push origin (name of tag)
 2. [metadata-action](https://github.com/docker/metadata-action?tab=readme-ov-file#semver)
 3. chatgpt prompt ```can you explain this workflows file to me? (copied file from reference 2)
 4. chaggpt prompt off first above ```what if i want to send to dockerhub instead of ghcr```
+5. [used this to help me trouble shoot](https://docs.github.com/en/actions/use-cases-and-examples/publishing-packages/publishing-docker-images)
+
 
 # Part 2 - Continous Deployment
 
