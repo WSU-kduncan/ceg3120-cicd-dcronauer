@@ -112,4 +112,12 @@ I ran into problems with authorization. Turns out that my docker username was wr
 
 # Part 2 - Continous Deployment
 
+
+## References Part 2
+
+1. chatgpt prompt - to install docker on AWS ubuntu instance
+```
+how do i install docker on ubuntu aws instance
+```
+
 # Part 3 - Project Description & Diagram
