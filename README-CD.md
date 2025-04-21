@@ -93,7 +93,9 @@ On above, macOS gave me issues when pulling specific tags, when I start setting 
 3. chatgpt prompt ```can you explain this workflows file to me? (copied file from reference 2)
 4. chaggpt prompt off first above ```what if i want to send to dockerhub instead of ghcr```
 5. [Found this when troubleshooting](https://docs.github.com/en/actions/use-cases-and-examples/publishing-packages/publishing-docker-images)
-6. chat gpt prompt ```i am going to pass you some code at end, can you write me some documentation in github markdown format that addresses the following bullet points?
+6. chat gpt prompt
+```
+i am going to pass you some code at end, can you write me some documentation in github markdown format that addresses the following bullet points?
 Semantic Versioning Container Images with GitHub Actions
 
     Summary of what your workflow does and when it does it
@@ -101,7 +103,8 @@ Semantic Versioning Container Images with GitHub Actions
     Explanation / highlight of values that need updated if used in a different repository
         changes in workflow
         changes in repository
-    Link to workflow file in your GitHub repository ```
+    Link to workflow file in your GitHub repository
+```
 
 ## Problems Part 1
 
