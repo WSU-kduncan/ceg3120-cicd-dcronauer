@@ -1,0 +1,200 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  Cronauer CF Template to meet the requirements from project2 of CEG3120.
+Parameters:
+  KeyName:
+    Description: Name of an existing EC2 KeyPair to enable SSH access to the instance
+    Type: 'AWS::EC2::KeyPair::KeyName'
+    ConstraintDescription: must be the name of an existing EC2 KeyPair.
+    Default: 'vockey'
+  # SSHLocation:
+  #   Description: ' The IP address range that can be used to access the EC2 instance'
+  #   Type: String
+  #   MinLength: '9' # 1.1.1.1/0
+  #   MaxLength: '18' # 255.255.255.255/32
+  #   Default: 0.0.0.0/0
+  #   AllowedPattern: '(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/(\d{1,2})'
+  #   ConstraintDescription: must be a valid IP CIDR range of the form x.x.x.x/x.
+Mappings:
+  AWSRegionAMI: # AMI for Ubuntu server in each supported region 
+    us-east-1:   # N. Virginia
+    # AMI ID for Ubuntu 20 (ubuntu + apt) - Amazon Linux 2 AMI ami-02e136e904f3da870 (ec2-user + yum)
+      HVM64: ami-04b4f1a9cf54c11d0 # TODO use AMI ID of choice
+Resources:
+  VPC:
+    Type: 'AWS::EC2::VPC'
+    Properties:
+      CidrBlock: 172.18.0.0/23
+      Tags:
+        - Key: Application
+          Value: !Ref 'AWS::StackId'
+        - Key: Name
+          Value: CRONAUER-CF-VPC
+  Subnet:
+    Type: 'AWS::EC2::Subnet'
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: 172.18.0.0/24
+      Tags:
+        - Key: Application
+          Value: !Ref 'AWS::StackId'
+        - Key: Name
+          Value: CRONAUER-CF-SUBNET
+  InternetGateway:
+    Type: 'AWS::EC2::InternetGateway'
+    Properties:
+      Tags:
+        - Key: Application
+          Value: !Ref 'AWS::StackId'
+        - Key: Name
+          Value: CRONAUER-CF-InternetGateway
+  AttachGateway:
+    Type: 'AWS::EC2::VPCGatewayAttachment'
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref InternetGateway
+  RouteTable:
+    Type: 'AWS::EC2::RouteTable'
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Application
+          Value: !Ref 'AWS::StackId'
+        - Key: Name
+          Value: CRONAUER-CF-RouteTable
+  Route:
+    Type: 'AWS::EC2::Route'
+    DependsOn: AttachGateway
+    Properties:
+      RouteTableId: !Ref RouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+  SubnetRouteTableAssociation:
+    Type: 'AWS::EC2::SubnetRouteTableAssociation'
+    Properties:
+      SubnetId: !Ref Subnet
+      RouteTableId: !Ref RouteTable
+  UbuntuIPAddress:
+    Type: 'AWS::EC2::EIP'
+    DependsOn: AttachGateway
+    Properties:
+      Domain: vpc
+      InstanceId: !Ref PublicUbuntuInstance
+      Tags:
+        - Key: Name
+          Value: CRONAUER-CF-EIP
+  SecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      VpcId: !Ref VPC
+      GroupDescription: Enable SSH access via port 22 and open HTML port.
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: 130.108.0.0/16  # WSU CIDR SSH
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: 74.139.93.82/32 #home network SSH
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: 172.18.0.0/23 #local network SSH both public and maybe eventually private subnets
+        - IpProtocol: tcp #allow HTTP but not HTTPS
+          FromPort: '80'
+          ToPort: '80'
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: CRONAUER-CF-SecurityGroup
+  NetworkACL:
+    Type: 'AWS::EC2::NetworkAcl'
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: CRONAUER-CF-NACL
+        - Key: Application
+          Value: !Ref 'AWS::StackId'
+  InboundAllowAllRule:
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      NetworkAclId: !Ref NetworkACL
+      RuleNumber: 100
+      Protocol: -1
+      Egress: false
+      RuleAction: allow
+      CidrBlock: 0.0.0.0/0
+      PortRange:
+        From: 1
+        To: 65535
+  OutboundDenyRule:
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      NetworkAclId: !Ref NetworkACL
+      RuleNumber: 50  
+      Protocol: -1 
+      RuleAction: deny  
+      Egress: true  
+      CidrBlock: 5.9.243.187/32  # Destination CIDR block (example: 0.0.0.0/0 for all IPs)
+      PortRange:
+        From: 0
+        To: 65535  
+  OutboundAllowAllRule:
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      NetworkAclId: !Ref NetworkACL
+      RuleNumber: 100
+      Protocol: -1
+      Egress: true
+      RuleAction: allow
+      CidrBlock: 0.0.0.0/0
+  SubnetNetworkAclAssociation:
+    Type: AWS::EC2::SubnetNetworkAclAssociation
+    Properties:
+      SubnetId:
+        Ref: Subnet
+      NetworkAclId:
+        Ref: NetworkACL
+  PublicUbuntuInstance:
+    Type: 'AWS::EC2::Instance'
+    DependsOn: AttachGateway
+    Properties:
+      ImageId: !FindInMap [AWSRegionAMI, !Ref "AWS::Region", HVM64]
+      InstanceType: t2.micro
+      KeyName: !Ref KeyName
+      Tags:
+        - Key: Application
+          Value: !Ref 'AWS::StackId'
+        - Key: Name
+          Value: CRONAUER-CF-Ubuntu
+      NetworkInterfaces:
+        - GroupSet:
+            - !Ref SecurityGroup
+          AssociatePublicIpAddress: 'true'
+          DeviceIndex: '0'
+          DeleteOnTermination: 'true'
+          SubnetId: !Ref Subnet
+          PrivateIpAddress: 172.18.0.25
+      UserData:
+        Fn::Base64:
+          !Sub |
+            #!/bin/bash -xe
+            hostnamectl set-hostname Cronauer-Ubuntu-24.04-LTS
+            echo "This is start" > /home/ubuntu/start.txt
+            apt-get update && \
+            apt-get install -y \
+            git \
+            htop \
+            python3 \
+            python3-pip \
+            wamerican \
+            sl \
+            apache2 &&\
+            echo "Packages good" > /home/ubuntu/packages.txt
+            wget -O /home/ubuntu/wordle.sh "https://raw.githubusercontent.com/pattonsgirl/CEG3120/refs/heads/main/Projects/Project2/wordle.sh"
+            wget -O /var/www/html/index.html "https://raw.githubusercontent.com/pattonsgirl/CEG3120/refs/heads/main/Projects/Project2/index.html" && \
+            echo "wget good" > /home/ubuntu/hello.txt
+            reboot
+    
