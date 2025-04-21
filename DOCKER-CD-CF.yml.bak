@@ -208,13 +208,16 @@ Resources:
             sudo apt-get update
 
             sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
-            
-            wget https://raw.githubusercontent.com/WSU-kduncan/ceg3120-cicd-dcronauer/main/deployment/deploy-docker.sh
-            sudo chmod +x deploy-docker.sh
-            sudo ./deploy-docker.sh && \
 
             
-            echo "docker run success" >> /home/ubuntu/packages.txt
+            
+            sudo docker pull dcronauer2025/cronauer-ceg3120:latest && \
+
+            echo "docker pull success" >> /home/ubuntu/packages.txt
+
+            sudo docker run --name CI-CD-DOCKER -p 80:4200 dcronauer2025/cronauer-ceg3120:latest  && \
+
+            echo "docker run sucess" >> /home/ubuntu/packages.txt
             
             reboot
     
