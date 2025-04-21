@@ -119,5 +119,40 @@ I ran into problems with authorization. Turns out that my docker username was wr
 ```
 how do i install docker on ubuntu aws instance
 ```
+2. chatgpt prompt - making script
+```
+can you make me a bash script 
+Craft a bash script that will:
+
+    stop and remove the formerly running container
+    pull the latest tagged image from your DockerHub repository
+    run a new container process with the pull'ed image
+    ADD bash script to folder named deployment in your GitHub repository
+```
+4. chaggpt prompt - improving script if docker container does not exists, fixed script above first so it ran, then realized, what if container does not exist yet?
+```
+can this handle the case if the docker image does not exists
+#!/bin/bash
+
+# Set variables (adjust these to your needs)
+CONTAINER_NAME="CI-CD-DOCKER"      # The name of your Docker container
+IMAGE_NAME="dcronauer2025/cronauer-ceg3120" # DockerHub image name (replace with your actual image)
+
+# Step 1: Stop and remove the formerly running container
+echo "Stopping the running container..." >> /home/ubuntu/ci-cd.txt
+sudo docker stop $CONTAINER_NAME
+sudo docker rm $CONTAINER_NAME
+echo "Container stopped and removed."
+
+# Step 2: Pull the latest image from DockerHub
+echo "Pulling the latest image from DockerHub..." >> /home/ubuntu/ci-cd.txt
+sudo docker pull $IMAGE_NAME:latest
+echo "Latest image pulled."
+
+# Step 3: Run a new container with the pulled image
+echo "Running the new container..." >> /home/ubuntu/ci-cd.txt
+sudo docker run -d --name $CONTAINER_NAME -p 80:4200 $IMAGE_NAME:latest 
+echo "New container is running."
+```
 
 # Part 3 - Project Description & Diagram
