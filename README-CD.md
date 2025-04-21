@@ -44,7 +44,7 @@ This GitHub Actions workflow automates the building and pushing of Docker images
   - `latest` tag for releases
 - Builds images using Docker Buildx with support for cross-platform builds.
 
-## How to change .yml file fors new GitHub/DockerHub repository if needed
+### How to change .yml file fors new GitHub/DockerHub repository if needed
 
 1. Add secrets review the structure in .yml file. 
 ```
@@ -60,8 +60,23 @@ password: ${{ secrets.DOCKER_TOKEN }}
 5. Double check and verify that your tags and latest are pushed to dockerhub for testing.    
 
 ### Location of .yml file
-![Path to cdBuild.yml](../.github/workflows/cdBuild.yml)
+[Path to cdBuild.yml](.github/workflows/cdBuild.yml)
 
+## Testing and Validation
+
+### GitHub Workflow Verification
+
+1. ***Image terminal making new tag and pushing to GitHub v0.8.1***
+![Terminal tag push](/Project4/images/pushTag.png)<br>
+2. ***GitHub action tag showing workflow action that worked***
+![GitHub Action](/Project4/images/githubAction.png)<br>
+3. ***Image showing three tag version and latest updated in DockerHub***
+![DockerHub Tags](/Project4/images/dockerTagVersions.png)<br>
+
+### Docker container, pulled and run
+
+1. ***Terminal image, pulling container and running***
+2. ***Local Browser web page served***
 
 ## References Part 1
 
