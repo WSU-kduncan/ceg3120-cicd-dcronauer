@@ -423,7 +423,15 @@ I chose DockerHub for the simple reason that GitHub action might fail, or we mig
 
 ### How to enable DockerHub to send payloads to EC2 webhook listener
 
+1. Go to repository on DockerHub
+2. Click webhooks tab
+3. Type in webhook name
+4. Type in url that will trigger webhook on ecn instance
+
 ### What triggers will send paylord to EC2 webhook listener
+
+This is simple, any time that an image is pushed to this DockerHub repository will cause the webhook to trigger.
+This will then cause the EC2 instance to download latest image.
 
 ### How to verify payload delivered
 
