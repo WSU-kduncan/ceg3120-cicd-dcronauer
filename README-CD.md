@@ -112,7 +112,44 @@ I ran into problems with authorization. Turns out that my docker username was wr
 
 # Part 2 - Continous Deployment
 
+## EC2 Instance Details
 
+### Cloud Formation Template used Project 2 and modified from there
+
+  - ***AMI*** ami-04b4f1a9cf54c11d0
+  - ***Instance type*** t2.medium
+  - ***Volume Size*** 30GB
+  - ***Security Group*** Did not change from project 2, code below
+  ```
+  SecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      VpcId: !Ref VPC
+      GroupDescription: Enable SSH access via port 22 and open HTML port.
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: 130.108.0.0/16  # WSU CIDR SSH
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: 74.139.93.82/32 #home network SSH
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: 172.18.0.0/23 #local network SSH both public and maybe eventually private subnets
+        - IpProtocol: tcp #allow HTTP but not HTTPS
+          FromPort: '80'
+          ToPort: '80'
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: CRONAUER-CF-SecurityGroup
+  ```
+  - This sets up SSH to work from my house, WSU and local network
+  - We allow HTTP, since our webserver will be serving HTTP website, we allow all IPs to rwuest
+  - For now this works for the purposes of this project, might need to add more for the webhook and I will update here when I do. 
 ## References Part 2
 
 1. chatgpt prompt - to install docker on AWS ubuntu instance
