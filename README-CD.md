@@ -347,5 +347,42 @@ echo "Running the new container..." >> /home/ubuntu/ci-cd.txt
 sudo docker run -d --name $CONTAINER_NAME -p 80:4200 $IMAGE_NAME:latest 
 echo "New container is running."
 ```
+## Scripting Container App Refresh for webhook to call
+
+### Script created
+
+### Test Script
+
+1. Check docker ps -a (remember sudo), kill any running (we have v0.9.0 running), so if this works (CI-CD-DOCKER) at bottom will now be running and a new container ID.
+```
+ubuntu@Cronauer-Ubuntu-24:~$ sudo docker ps -a
+CONTAINER ID   IMAGE                                   COMMAND                  CREATED             STATUS                        PORTS                                     NAMES
+0d3eaac31710   dcronauer2025/cronauer-ceg3120:v0.9.0   "docker-entrypoint.s…"   7 minutes ago       Up 7 minutes                  0.0.0.0:80->4200/tcp, [::]:80->4200/tcp   thirsty_euler
+625ef0fc848c   dcronauer2025/cronauer-ceg3120:v0.9.0   "docker-entrypoint.s…"   17 minutes ago      Exited (137) 9 minutes ago                                              intelligent_lovelace
+51401c88438a   dcronauer2025/cronauer-ceg3120:v0.9.0   "docker-entrypoint.s…"   18 minutes ago      Created                                                                 dreamy_fermi
+a5d06c4fc009   dcronauer2025/cronauer-ceg3120:latest   "docker-entrypoint.s…"   34 minutes ago      Exited (137) 17 minutes ago                                             sad_spence
+f9d7e5e74035   dcronauer2025/cronauer-ceg3120:latest   "docker-entrypoint.s…"   About an hour ago   Exited (137) 36 minutes ago                                             CI-CD-DOCKER
+```
+2. Run script
+```
+ubuntu@Cronauer-Ubuntu-24:~$ sudo ./deploy-docker.sh
+```
+3. Run docker ps -a again, note that CI-CD-DOCKER is not running and container ID changed. Script worked!
+```
+ubuntu@Cronauer-Ubuntu-24:~$ sudo docker ps -a
+CONTAINER ID   IMAGE                                   COMMAND                  CREATED          STATUS                            PORTS                                     NAMES
+20f162ec73d6   dcronauer2025/cronauer-ceg3120:latest   "docker-entrypoint.s…"   39 seconds ago   Up 38 seconds                     0.0.0.0:80->4200/tcp, [::]:80->4200/tcp   CI-CD-DOCKER
+0d3eaac31710   dcronauer2025/cronauer-ceg3120:v0.9.0   "docker-entrypoint.s…"   11 minutes ago   Exited (137) About a minute ago                                             thirsty_euler
+625ef0fc848c   dcronauer2025/cronauer-ceg3120:v0.9.0   "docker-entrypoint.s…"   21 minutes ago   Exited (137) 12 minutes ago                                                 intelligent_lovelace
+51401c88438a   dcronauer2025/cronauer-ceg3120:v0.9.0   "docker-entrypoint.s…"   22 minutes ago   Created                                                                     dreamy_fermi
+a5d06c4fc009   09b767330c78                            "docker-entrypoint.s…"   38 minutes ago   Exited (137) 21 minutes ago                                                 sad_spence
+```
+4. Check browser locally to see if bird is still staring can confirm it is.
+
+### Link to script
+
+[SH script automation](deployment/deploy-docker.sh)
+
+## Configuring webhook listener EC2 instance
 
 # Part 3 - Project Description & Diagram
