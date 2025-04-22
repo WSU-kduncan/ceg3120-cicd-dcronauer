@@ -401,7 +401,21 @@ nohup: ignoring input
   - **Install**
    - **WantedBy=multi-user.target** Tells tells us to start during boot process
 
-### 
+### How to enable,start,stop,retart the webhook service
+   
+   - **Restart daemon if you changed webhook.service file*** ```sudo systemctl daemon-reload```
+   - **Enable** ```sudo systemctl enable webhook.service```
+   - **Start** ```sudo systemctl start webhook.service```
+   - **Stop** ```sudo systemctl stop webhook.service```
+   - **Restart** ```sudo systemctl restart webhook.service```
+   - **Get Status** ``sudo systemctl status webhook.service```
+
+### How to verify webhook.service is working
+
+### Link to service file
+
+[Link to webhook.service]()
+
 ## References Part 2
 
 1. chatgpt prompt - to install docker on AWS ubuntu instance
