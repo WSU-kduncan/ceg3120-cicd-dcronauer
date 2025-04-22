@@ -1,0 +1,14 @@
+[Unit]
+Description=Webhook Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/webhook -hooks /home/ubuntu/webhook-definition.json -verbose
+WorkingDirectory=/home/ubuntu
+Restart=always
+User=ubuntu
+Group=ubuntu
+
+[Install]
+WantedBy=multi-user.target
+

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "CI-CD",
+    "execute-command": "/home/ubuntu/deploy-docker.sh",
+    "command-working-directory": "/home/ubuntu",
+    "pass-arguments-to-command": [
+      {
+        "source": "payload",
+        "name": "message"
+      }
+    ],
+    "response-message": "Webhook triggered!"
+  }
+]
