@@ -150,6 +150,78 @@ I ran into problems with authorization. Turns out that my docker username was wr
   - This sets up SSH to work from my house, WSU and local network
   - We allow HTTP, since our webserver will be serving HTTP website, we allow all IPs to rwuest
   - For now this works for the purposes of this project, might need to add more for the webhook and I will update here when I do. 
+
+## Docker Setup EC2 on Ubuntu
+
+### Install Docker Unbuntu and Dependencies
+ 
+  - I added the following code to the EC2 setup script. This was suggested by CHAPGPT and works without me having to do anything. Captures dependencies and install altogher
+```
+apt-get update && \
+apt-get install -y \
+ca-certificates \
+curl \
+lsb-release && \
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o \            etc/apt/keyrings/docker.gpg
+echo \
+"deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] \
+https://download.docker.com/linux/ubuntu \
+$(lsb_release -cs) stable" | \
+sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin \
+docker-compose-plugin -y
+```
+
+### Confirm Install docker
+
+1. Command line use docker --version
+```
+ubuntu@Cronauer-Ubuntu-24:~$ docker --version
+Docker version 28.1.1, build 4eba377
+```
+2. Confirm you can run docker container, I already have one loaded through script. I killed the runing process in order to open port. Then ran this command.
+```
+ubuntu@Cronauer-Ubuntu-24:~$ sudo docker run -it -p  80:4200 dcronauer2025/cronauer-ceg3120:latest
+Warning: This is a simple server for use in testing or debugging Angular applications
+locally. It hasn't been reviewed for security issues.
+
+Binding this server to an open connection can result in compromising your application or
+computer. Using a different host than the one passed to the "--host" flag might result in
+websocket connection issues. You might need to use "--disable-host-check" if that's the
+case.
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names         |  Raw Size
+vendor.js             | vendor        |   2.34 MB | 
+polyfills.js          | polyfills     | 234.35 kB | 
+styles.css, styles.js | styles        | 145.32 kB | 
+main.js               | main          |  96.33 kB | 
+runtime.js            | runtime       |   6.50 kB | 
+
+                      | Initial Total |   2.81 MB
+
+Build at: 2025-04-22T12:07:35.539Z - Hash: edd52c0d9c75996c - Time: 18421ms
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
+✔ Browser application bundle generation complete.
+
+5 unchanged chunks
+
+Build at: 2025-04-22T12:07:36.253Z - Hash: edd52c0d9c75996c - Time: 562ms
+
+✔ Compiled successfully.
+```
+- Checking web browser to public IP address confirmed that it is available to outside world on port 80.
+
+## Testing on EC2 Instance
+
+
+
 ## References Part 2
 
 1. chatgpt prompt - to install docker on AWS ubuntu instance
