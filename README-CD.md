@@ -430,6 +430,7 @@ I chose DockerHub for the simple reason that GitHub action might fail, or we mig
 ## Configure a webhook Service on EC2 instance
 
 ### Summary webservice contents
+First make sure that you add webhook.service file to this location ```/etc/systemd/system/```
  - **Unit**
    - **Description** - just gives description that we can understand for the service involved
    - **After=network.target** - this tells us that the service will only start once the network is up
