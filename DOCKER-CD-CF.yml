@@ -105,6 +105,10 @@ Resources:
           FromPort: '80'
           ToPort: '80'
           CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp 
+          FromPort: '9000'
+          ToPort: '9000'
+          CidrIp: 0.0.0.0/0
       Tags:
         - Key: Name
           Value: CRONAUER-CF-SecurityGroup
@@ -191,6 +195,7 @@ Resources:
             echo "This is start" > /home/ubuntu/start.txt
             apt-get update && \
             apt-get install -y \
+            webhook \
             git \
             python3 \
             python3-pip \
