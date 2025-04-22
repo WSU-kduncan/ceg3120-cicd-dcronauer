@@ -84,7 +84,7 @@ password: ${{ secrets.DOCKER_TOKEN }}
 
 ### Note
 
-On above, macOS gave me issues when pulling specific tags, when I start setting up EC2 instances, will check to see if error is not there. 
+On above, macOS gave me issues when pulling specific tags, when I start setting up EC2 instances, will check to see if error is not there. You will see in Ubuntu EC2 instance that this goes away as we wanted AMD64 and my system is ARM64.
 
 ## References Part 1
 
@@ -148,14 +148,14 @@ I ran into problems with authorization. Turns out that my docker username was wr
           Value: CRONAUER-CF-SecurityGroup
   ```
   - This sets up SSH to work from my house, WSU and local network
-  - We allow HTTP, since our webserver will be serving HTTP website, we allow all IPs to rwuest
+  - We allow HTTP, since our webserver will be serving HTTP website, we allow all IPs to request
   - For now this works for the purposes of this project, might need to add more for the webhook and I will update here when I do. 
 
 ## Docker Setup EC2 on Ubuntu
 
 ### Install Docker Unbuntu and Dependencies
  
-  - I added the following code to the EC2 setup script. This was suggested by CHAPGPT and works without me having to do anything. Captures dependencies and install altogher
+  - I added the following code to the EC2 setup script. This was suggested by CHAPGPT and works without me having to do anything. Captures dependencies and install at the same time.
 ```
 apt-get update && \
 apt-get install -y \
@@ -220,7 +220,72 @@ Build at: 2025-04-22T12:07:36.253Z - Hash: edd52c0d9c75996c - Time: 562ms
 
 ## Testing on EC2 Instance
 
+### Pull from DockerHub repository
 
+1. Go to docker hub, identify the containe you want from repository and click copy. Here is command for v0.9.0. You will want to use sudo with the command. Not that pulling a tag name works here, vs locally on my mac for tags.
+```
+ubuntu@Cronauer-Ubuntu-24:~$ sudo docker pull dcronauer2025/cronauer-ceg3120:v0.9.0
+v0.9.0: Pulling from dcronauer2025/cronauer-ceg3120
+23b7d26ef1d2: Already exists 
+07d1b5af933d: Already exists 
+1eb98adba0eb: Already exists 
+b617a119f8a2: Already exists 
+ee496386c5de: Already exists 
+058db40e5342: Already exists 
+04deb1529fda: Already exists 
+3b3ca5178f3e: Already exists 
+b3498f8efd54: Pull complete 
+3262a782ee46: Pull complete 
+141ff8251eca: Pull complete 
+fa1d8e742164: Pull complete 
+4f4fb700ef54: Pull complete 
+bd1fba00a32c: Pull complete 
+Digest: sha256:89455364705f8ba26316044458029b3e13d2b614710c2f62c01b4ea0c8953f66
+Status: Downloaded newer image for dcronauer2025/cronauer-ceg3120:v0.9.0
+docker.io/dcronauer2025/cronauer-ceg3120:v0.9.0
+```
+
+### Run Image tag pulled
+
+- ```-it``` will run interactively and you be inside the docker instance as it runs. When the angular app starts it will run in foreground and you will just see the compile successful and nothing else. If you use ```-d``` flag it will run in the background freeing up the terminal to do other things as the angular app runs. Once complete we will stop using -it and use -d since we have confirmed that everything works and we do not need to see it anymore. Running in the background makes more sense for services like docker container images. That way you can have more than one running on the AWS instance at the same time if needed.
+- Code to run interactively below
+```
+ubuntu@Cronauer-Ubuntu-24:~$ sudo docker run -it -p  80:4200 dcronauer2025/cronauer-ceg3120:v0.9.0
+Warning: This is a simple server for use in testing or debugging Angular applications
+locally. It hasn't been reviewed for security issues.
+
+Binding this server to an open connection can result in compromising your application or
+computer. Using a different host than the one passed to the "--host" flag might result in
+websocket connection issues. You might need to use "--disable-host-check" if that's the
+case.
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names         |  Raw Size
+vendor.js             | vendor        |   2.34 MB | 
+polyfills.js          | polyfills     | 234.35 kB | 
+styles.css, styles.js | styles        | 145.32 kB | 
+main.js               | main          |  96.33 kB | 
+runtime.js            | runtime       |   6.50 kB | 
+
+                      | Initial Total |   2.81 MB
+
+Build at: 2025-04-22T12:24:32.639Z - Hash: edd52c0d9c75996c - Time: 18618ms
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
+✔ Browser application bundle generation complete.
+
+5 unchanged chunks
+
+Build at: 2025-04-22T12:24:33.278Z - Hash: edd52c0d9c75996c - Time: 495ms
+
+✔ Compiled successfully
+```
+
+### Verify that angular is serving from docker instance
+  - Container side verification is listed above. We ran interactively and saw the results in the docker instance terminal.
 
 ## References Part 2
 
