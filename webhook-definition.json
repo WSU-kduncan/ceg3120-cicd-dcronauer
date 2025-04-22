@@ -1,14 +1,21 @@
-[
-  {
-    "id": "CI-CD",
-    "execute-command": "/home/ubuntu/deploy-docker.sh",
-    "command-working-directory": "/home/ubuntu",
-    "pass-arguments-to-command": [
-      {
+{
+  "id": "CI-CD",
+  "execute-command": "/home/ubuntu/deploy-docker.sh",
+  "pass-arguments-to-command": [
+    {
+      "source": "payload",
+      "name": "push_data.tag"
+    }
+  ],
+  "trigger-rule": {
+    "match": {
+      "type": "value",
+      "value": "latest",
+      "parameter": {
         "source": "payload",
-        "name": "message"
+        "name": "push_data.tag"
       }
-    ],
-    "response-message": "Webhook triggered!"
+    }
   }
-]
+}
+
