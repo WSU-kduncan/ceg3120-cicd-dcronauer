@@ -414,6 +414,19 @@ nohup: ignoring input
 
 [Github definition file](webhook-definition.json)
 
+
+## Configure Payload Sender
+
+### Why I chose DockerHub
+
+I chose DockerHub for the simple reason that GitHub action might fail, or we might choose another remote repository using Git at some point. For this reason, I think it is better to listen on DockerHub side, since that is where the actually changes and storage of containers is happening.
+
+### How to enable DockerHub to send payloads to EC2 webhook listener
+
+### What triggers will send paylord to EC2 webhook listener
+
+### How to verify payload delivered
+
 ## Configure a webhook Service on EC2 instance
 
 ### Summary webservice contents
