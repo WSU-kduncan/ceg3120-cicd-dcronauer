@@ -217,7 +217,7 @@ Resources:
 
             sudo docker run --name CI-CD-DOCKER -p 80:4200 dcronauer2025/cronauer-ceg3120:latest  && \
 
-            echo "docker run sucess" >> /home/ubuntu/packages.txt
+            echo "docker run success" >> /home/ubuntu/packages.txt
             
             reboot
     
