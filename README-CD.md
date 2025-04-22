@@ -519,4 +519,8 @@ prompt below provided information on how to set up service file for webhooks
 ```
 can this webhook be run in the background
 ```
+7. chatgpt prompts - just want dockerhub to send http request over port 9000 that will trigger the script
+```
+how to have dockerhub sent webhook request to ec2 instance
+```
 # Part 3 - Project Description & Diagram
