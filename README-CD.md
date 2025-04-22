@@ -285,7 +285,26 @@ Build at: 2025-04-22T12:24:33.278Z - Hash: edd52c0d9c75996c - Time: 495ms
 ```
 
 ### Verify that angular is serving from docker instance
+  
   - Container side verification is listed above. We ran interactively and saw the results in the docker instance terminal.
+
+### Verify that angular is serving from AWS instance
+
+  - Run docker kill any running instances (use docker ps -a to identify running images)
+   - Run in detached mode. This will let you be inside AWS instance with docker container running in background. We use docker ps -a to confirm that v0.9.0 is running (up 18 seconds) for thirsty_euler. Also confirmed that web browser works. 
+  ```
+  ubuntu@Cronauer-Ubuntu-24:~$ sudo docker run -d -p  80:4200 dcronauer2025/cronauer-ceg3120:v0.9.0
+0d3eaac317108ea1224d5dcb473c24a93e7596e25f95d72df1a076401c33c33b
+ubuntu@Cronauer-Ubuntu-24:~$ sudo docker ps -a
+CONTAINER ID   IMAGE                                   COMMAND                  CREATED          STATUS                            PORTS                                     NAMES
+0d3eaac31710   dcronauer2025/cronauer-ceg3120:v0.9.0   "docker-entrypoint.s…"   19 seconds ago   Up 18 seconds                     0.0.0.0:80->4200/tcp, [::]:80->4200/tcp   thirsty_euler
+625ef0fc848c   dcronauer2025/cronauer-ceg3120:v0.9.0   "docker-entrypoint.s…"   10 minutes ago   Exited (137) About a minute ago                                             intelligent_lovelace
+51401c88438a   dcronauer2025/cronauer-ceg3120:v0.9.0   "docker-entrypoint.s…"   11 minutes ago   Created                                                                     dreamy_fermi
+a5d06c4fc009   dcronauer2025/cronauer-ceg3120:latest   "docker-entrypoint.s…"   27 minutes ago   Exited (137) 10 minutes ago                                                 sad_spence
+f9d7e5e74035   dcronauer2025/cronauer-ceg3120:latest   "docker-entrypoint.s…"   56 minutes ago   Exited (137) 29 minutes ago                                                 CI-CD-DOCKER
+  ```
+### Verify from outside system
+  - I have posted the bird so many times. I can confirm that it runs from local webbrowser and serves the bird. 
 
 ## References Part 2
 
