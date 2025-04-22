@@ -349,6 +349,20 @@ a5d06c4fc009   09b767330c78                            "docker-entrypoint.s…" 
 
 ## Configuring webhook listener EC2 instance
 
+### How to install webhooks Ubuntu instance
+
+```
+sudo apt-get install webhook
+```
+
+### How to verify webhook installation
+
+```
+ubuntu@Cronauer-Ubuntu-24:~$ webhook --version
+webhook version 2.8.0
+```
+
+
 ## References Part 2
 
 1. chatgpt prompt - to install docker on AWS ubuntu instance
