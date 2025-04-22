@@ -362,7 +362,46 @@ ubuntu@Cronauer-Ubuntu-24:~$ webhook --version
 webhook version 2.8.0
 ```
 
+### Webhook definition file
 
+### Verify that webhook loaded
+
+- Run this command and it should run in the background sending logging to webhook.log for troubleshooting if needed
+```
+ubuntu@Cronauer-Ubuntu-24:~$ nohup webhook -hooks /home/ubuntu/webhook-definition.json -verbose > webhook.log 2>&1 &
+[1] 1633
+```
+details from log file
+```
+ubuntu@Cronauer-Ubuntu-24:~$ cat webhook.log
+nohup: ignoring input
+[webhook] 2025/04/22 13:37:39 version 2.8.0 starting
+[webhook] 2025/04/22 13:37:39 setting up os signal watcher
+[webhook] 2025/04/22 13:37:39 attempting to load hooks from /home/ubuntu/webhook-definition.json
+[webhook] 2025/04/22 13:37:39 found 1 hook(s) in file
+[webhook] 2025/04/22 13:37:39 	loaded: CI-CD
+[webhook] 2025/04/22 13:37:39 serving hooks on http://0.0.0.0:9000/hooks/{id}
+[webhook] 2025/04/22 13:37:39 os signal watcher ready
+```
+
+
+## Configure a webhook Service on EC2 instance
+
+### Summary webservice contents
+ - **Unit**
+   - **Description** - just gives description that we can understand for the service involved
+   - **After=network.target** - this tells us that the service will only start once the network is up
+ - **Service**
+   - **ExecStart=/usr/bin/webhook -hooks /home/ubuntu/webhook-definition.json -verbose**
+     This is the meat of the service, tells us where the app is located and where the hook file to run is.
+   - **WorkingDirectory=/home/ubuntu** Tells us where the root directory for service will be
+   - **User** user to run in our case ubuntu
+   - **Group** group to run in our case ubuntu
+   - **Restart=always** Tells us that the webhook service will restart if it stops for any reason
+  - **Install**
+   - **WantedBy=multi-user.target** Tells tells us to start during boot process
+
+### 
 ## References Part 2
 
 1. chatgpt prompt - to install docker on AWS ubuntu instance
@@ -406,5 +445,22 @@ echo "New container is running."
 ```
 5. Webhook reference - sudo apt-get install webhook (added to cloud formation) - also doc references port 9000 (add to security group!)
 [Class Reference](https://github.com/adnanh/webhook)
+6. Chatgpt prompts
+```
+can you do the following things for me?
+Configuring a webhook Listener on EC2 Instance
 
+    How to install adnanh's webhook to the EC2 instance
+    How to verify successful installation
+    Summary of the webhook definition file
+    How to verify definition file was loaded by webhook
+    How to verify webhook is receiving payloads that trigger it
+        how to monitor logs from running webhook
+        what to look for in docker process views
+    LINK to definition file in repository
+```
+prompt below provided information on how to set up service file for webhooks
+```
+can this webhook be run in the background
+```
 # Part 3 - Project Description & Diagram
