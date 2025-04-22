@@ -362,9 +362,31 @@ ubuntu@Cronauer-Ubuntu-24:~$ webhook --version
 webhook version 2.8.0
 ```
 
-### Webhook definition file
+### Summary Webhook definition file
 
-### Verify that webhook loaded
+ - **id** this will be used to identify your hook to use if you have multiple hooks 
+ - **execute-command** this is the script that we are telling the hook to run when triggered (in our case, stop and remove current docker container, pull the latest tag and run it.
+ - **command-working-directory"** this tells us the directory to search for hooks in, it will pick hook based on id
+ - **pass-arguments-to-command** this is the message and payload to pass
+ - **response-message** sends response back to calling machine
+```
+[
+  {
+    "id": "CI-CD",
+    "execute-command": "/home/ubuntu/deploy-docker.sh",
+    "command-working-directory": "/home/ubuntu",
+    "pass-arguments-to-command": [
+      {
+        "source": "payload",
+        "name": "message"
+      }
+    ],
+    "response-message": "Webhook triggered!"
+  }
+]
+```
+
+### Verify that webhook loaded definition file
 
 - Run this command and it should run in the background sending logging to webhook.log for troubleshooting if needed
 ```
