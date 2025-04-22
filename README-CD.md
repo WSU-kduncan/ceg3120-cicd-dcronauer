@@ -383,7 +383,14 @@ nohup: ignoring input
 [webhook] 2025/04/22 13:37:39 serving hooks on http://0.0.0.0:9000/hooks/{id}
 [webhook] 2025/04/22 13:37:39 os signal watcher ready
 ```
+### Verify webhook receiving loads
+  
+  - monitor logs running webhook
+  - look for in docker process views
 
+### Link to definition file
+
+[Github definition file](webhook-definition.json)
 
 ## Configure a webhook Service on EC2 instance
 
@@ -414,7 +421,7 @@ nohup: ignoring input
 
 ### Link to service file
 
-[Link to webhook.service]()
+[Link to webhook.service](webhook.service)
 
 ## References Part 2
 
