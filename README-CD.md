@@ -1,3 +1,38 @@
+# Part 3 - Project Description & Diagram
+
+## Project Overview
+
+### Goal of the project
+
+  - The goal of project 5 is to have students to apply an implementation CI and CD working together.
+  - The idea is to allow github repository changes to push updated docker images automatically to a remote AWS EC2 instance.
+  - This docker image will include a copy of the most recent website built in the GitHUb repository.
+  - The developer does not need to worry about anything, just push the tag that they are working on to the remote github repository.
+  - This allows the developer to focus on development knowing that their changes will reliably push to
+    the remote server that is serving the website content.
+
+### Tools used
+
+  - **GitHub Workflows** There is a .yml file in .github/workflows that will be used to trigger github actions.
+  This trigger will pull the current repository, log into dockerhub, create several dockerhub images and push them to dockerhub.
+  - **DockerHub / Docker** Docker Hub will be used to create a public repository to hold docker images for the project
+  - **DockerHub Webhook trigger** You provide a name and URL for where to push the webhook request to the AWS EC2 instance.
+  DockerHub will send for every tag pushed, but will filter for only latest on the EC2 end.
+  - **AWS EC2 instance with public ip** This instance will have several tools loaded onto it in order to handle the CI/CD process
+  - **adnanh Webhook** This is a lightweight GitHub repository that enables the use of webhooks. We install the library on EC2 instance
+    - This webhook library listens on port 9000 and will trigger if latest tag is pushed as part of HTTP request over this port.
+    - You definine a json file, which is the hook that listens for the request and responds by runing the script that repalces
+    current docker image on EC2 instance with the most recent docker image tagged latest.
+    - This json file defines what command will be executed and provides ID to reference for service. 
+  - **Webhook Service file** This file sets up a service for webhook, it ensures that webhook stays available. It waits for docker and network
+  to be avaialable before running. It restarts if it stops for any reason. This way the hook is always on the EC2 waiting for a deployment push.
+  - **SSH bash script to run from webhook trigger** This bash script stops and removes current running docker image. Then it pulls the latests
+  docker image which should reflect your current angular project state in github. Then it will run and deploy that new docker image so the
+  website is updated with the changes.
+  - **Public GitHub repository** This will house the angular project and provide the actions that push a new image to DockerHub which will
+  trigger the DockerHub to send a request on port 9000 to the AWS EC2 webhook. 
+
+
 # Part 1 - Semantic Versioning
 
 ## Git Tag Documentation
