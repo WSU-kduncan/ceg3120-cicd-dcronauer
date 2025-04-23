@@ -119,7 +119,7 @@ I ran into problems with authorization. Turns out that my docker username was wr
   - ***AMI*** ami-04b4f1a9cf54c11d0
   - ***Instance type*** t2.medium
   - ***Volume Size*** 30GB
-  - ***Security Group*** Did not change from project 2, code below
+  - ***Security Group*** Did not change from project 2 (minus adding port 9000), code below
   ```
   SecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
@@ -154,6 +154,8 @@ I ran into problems with authorization. Turns out that my docker username was wr
   - This sets up SSH to work from my house, WSU and local network
   - We allow HTTP, since our webserver will be serving HTTP website, we allow all IPs to request
   - Webhook uses port 9000 by default. We will add here.
+  - If I wanted to be ultra snazy rather than out of time and exhausted from work and school I would have
+     added all ip's that dockerhub would have sent out for port 9000.
 
 ## Docker Setup EC2 on Ubuntu
 
@@ -369,20 +371,29 @@ webhook version 2.8.0
  - **command-working-directory"** this tells us the directory to search for hooks in, it will pick hook based on id
  - **pass-arguments-to-command** this is the message and payload to pass
  - **response-message** sends response back to calling machine
+ - **trigger-rule** Use this section to only allow value latests to trigger my docker script. Parameter passes my tag to the trigger for matching.
 ```
 [
-  {
-    "id": "CI-CD",
-    "execute-command": "/home/ubuntu/deploy-docker.sh",
-    "command-working-directory": "/home/ubuntu",
-    "pass-arguments-to-command": [
-      {
+{
+  "id": "CI-CD",
+  "execute-command": "/home/ubuntu/deploy-docker.sh",
+  "pass-arguments-to-command": [
+    {
+      "source": "payload",
+      "name": "push_data.tag"
+    }
+  ],
+  "trigger-rule": {
+    "match": {
+      "type": "value",
+      "value": "latest",
+      "parameter": {
         "source": "payload",
-        "name": "message"
+        "name": "push_data.tag"
       }
-    ],
-    "response-message": "Webhook triggered!"
+    }
   }
+}
 ]
 ```
 
@@ -407,8 +418,39 @@ nohup: ignoring input
 ```
 ### Verify webhook receiving loads
   
-  - monitor logs running webhook
+  - monitor logs running webhook checked webhooks service
+  ```
+  ubuntu@Cronauer-Ubuntu-24:~$ sudo systemctl status webhook.service
+● webhook.service - Webhook Service
+     Loaded: loaded (/etc/systemd/system/webhook.service; enabled; preset: enabled)
+     Active: active (running) since Wed 2025-04-23 17:16:49 UTC; 2h 8min ago
+   Main PID: 1185 (webhook)
+      Tasks: 8 (limit: 4676)
+     Memory: 9.8M (peak: 20.2M)
+        CPU: 356ms
+     CGroup: /system.slice/webhook.service
+             └─1185 /usr/bin/webhook -hooks /home/ubuntu/webhook-definition.json -verbose
+
+Apr 23 18:34:39 Cronauer-Ubuntu-24.04-LTS webhook[1185]: 49c844a6557f: Pull complete
+Apr 23 18:34:39 Cronauer-Ubuntu-24.04-LTS webhook[1185]: 4f4fb700ef54: Pull complete
+Apr 23 18:34:39 Cronauer-Ubuntu-24.04-LTS webhook[1185]: ec7fb3870843: Pull complete
+Apr 23 18:34:39 Cronauer-Ubuntu-24.04-LTS webhook[1185]: Digest: sha256:300ddb5e88d46f0b11d7b70f3a70eff6a0bd99ad97be49d365286fd2fbc1b8c8
+Apr 23 18:34:39 Cronauer-Ubuntu-24.04-LTS webhook[1185]: Status: Downloaded newer image for dcronauer2025/cronauer-ceg3120:latest
+Apr 23 18:34:39 Cronauer-Ubuntu-24.04-LTS webhook[1185]: docker.io/dcronauer2025/cronauer-ceg3120:latest
+Apr 23 18:34:39 Cronauer-Ubuntu-24.04-LTS webhook[1185]: Running the new container...
+Apr 23 18:34:39 Cronauer-Ubuntu-24.04-LTS webhook[1185]: 30cfae8ce7d2ff4869e948b5349f6cb7cf1b87c3fa8f80f32822a6c1ac40ed1f
+Apr 23 18:34:39 Cronauer-Ubuntu-24.04-LTS webhook[1185]: Container is running successfully!
+Apr 23 18:34:39 Cronauer-Ubuntu-24.04-LTS webhook[1185]: [webhook] 2025/04/23 18:34:39 [2412ad] finished handling CI-CD
+  ```
   - look for in docker process views
+```
+ubuntu@Cronauer-Ubuntu-24:~$ sudo docker ps -a
+CONTAINER ID   IMAGE                                   COMMAND                  CREATED          STATUS                      PORTS                                     NAMES
+30cfae8ce7d2   dcronauer2025/cronauer-ceg3120:latest   "docker-entrypoint.s…"   50 minutes ago   Up 50 minutes               0.0.0.0:80->4200/tcp, [::]:80->4200/tcp   CI-CD-DOCKER
+b7b812f494ca   dcronauer2025/cronauer-ceg3120:v1.1.0   "docker-entrypoint.s…"   27 hours ago     Exited (137) 27 hours ago                                             quirky_bhabha
+eef959f2304a   dcronauer2025/cronauer-ceg3120:v1.1.0   "docker-entrypoint.s…"   27 hours ago     Exited (137) 27 hours ago                                             suspicious_leakey
+e109518942e7   dcronauer2025/cronauer-ceg3120:v1.1.0   "docker-entrypoint.s…"   28 hours ago     Created         
+```
 
 ### Link to definition file
 
