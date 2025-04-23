@@ -30,8 +30,61 @@
   docker image which should reflect your current angular project state in github. Then it will run and deploy that new docker image so the
   website is updated with the changes.
   - **Public GitHub repository** This will house the angular project and provide the actions that push a new image to DockerHub which will
-  trigger the DockerHub to send a request on port 9000 to the AWS EC2 webhook. 
+  trigger the DockerHub to send a request on port 9000 to the AWS EC2 webhook.
 
+## Mermaid Diagram
+
+```mermaid
+flowchart TD
+    A[Developer pushes Git tag (vX.X.X)] --> B[GitHub Actions Workflow Triggered]
+    B --> C[Build Docker Image using Buildx]
+    C --> D[Tag Docker Image<br>vX.X.X, vX.X, vX, latest]
+    D --> E[Push Tagged Image to DockerHub]
+
+    E --> F[DockerHub Webhook Triggered on 'latest' Tag]
+    F --> G[HTTP POST to EC2 Webhook Listener (port 9000)]
+
+    G --> H[Webhook Handler (adnanh/webhook)]
+    H --> I[Execute deploy-docker.sh Script]
+
+    I --> J[Stop & Remove Old Docker Container]
+    J --> K[Pull Latest Docker Image from DockerHub]
+    K --> L[Run New Docker Container]
+    L --> M[Updated Website Live on EC2]
+
+    subgraph EC2 Instance
+        G
+        H
+        I
+        J
+        K
+        L
+        M
+    end
+
+    subgraph GitHub Repository
+        A
+        B
+        C
+        D
+    end
+
+    subgraph DockerHub
+        E
+        F
+    end
+```
+
+## Part 3 References
+
+1. chatgpt prompt for diagram
+```
+after this prompt I will paste my github repository readme, can you review it and provide a mermaid mardown code to anwer the following Include a diagram (or diagrams) of the continuous deployment process configured in this project. It should (at minimum) address how the developer changing code results in a new container process running on the server running the container application.
+(contents of readme-cd.md)
+```
+```
+you did not make a mermaid diagram that i requested
+```
 
 # Part 1 - Semantic Versioning
 
