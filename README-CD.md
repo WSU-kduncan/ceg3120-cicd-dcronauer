@@ -461,21 +461,23 @@ e109518942e7   dcronauer2025/cronauer-ceg3120:v1.1.0   "docker-entrypoint.s…" 
 
 ### Why I chose DockerHub
 
-I chose DockerHub for the simple reason that GitHub action might fail, or we might choose another remote repository using Git at some point. For this reason, I think it is better to listen on DockerHub side, since that is where the actually changes and storage of containers is happening.
+I chose DockerHub for the simple reason that GitHub action might fail, or we might choose another remote repository using Git at some point. For this reason, I think it is better to listen on DockerHub side, since that is where the changes and storage of containers is happening. I learned that DockerHub sends each tag that pushes, but by triggering on latest, I solved my issues. I like to rely on the last part of the chain to ensure that the container will be available when pulled.
 
 ### How to enable DockerHub to send payloads to EC2 webhook listener
 
 1. Go to repository on DockerHub
 2. Click webhooks tab
 3. Type in webhook name
-4. Type in url that will trigger webhook on ecn instance
+4. Type in url that will trigger webhook on ec2 instance
 
 ### What triggers will send paylord to EC2 webhook listener
 
 This is simple, any time that an image is pushed to this DockerHub repository will cause the webhook to trigger.
-This will then cause the EC2 instance to download latest image.
+This will then cause the EC2 instance to download latest image. I used some triggers in the webhook json file to only allow 
+the latest tag to trigger the script to stop and remove old latest, then pull and run current latest.
 
 ### How to verify payload delivered
+See webhook section as that section confirms the same thing. Just on the webhook end. 
 
 ## Configure a webhook Service on EC2 instance
 
