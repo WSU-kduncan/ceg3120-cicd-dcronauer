@@ -36,15 +36,15 @@
 
 ```mermaid
 flowchart TD
-    A[Developer pushes Git tag (vX.X.X)] --> B[GitHub Actions Workflow Triggered]
+    A[Developer pushes Git tag vX.X.X] --> B[GitHub Actions Workflow Triggered]
     B --> C[Build Docker Image using Buildx]
     C --> D[Tag Docker Image<br>vX.X.X, vX.X, vX, latest]
     D --> E[Push Tagged Image to DockerHub]
 
     E --> F[DockerHub Webhook Triggered on 'latest' Tag]
-    F --> G[HTTP POST to EC2 Webhook Listener (port 9000)]
+    F --> G[HTTP POST to EC2 Webhook Listener port 9000]
 
-    G --> H[Webhook Handler (adnanh/webhook)]
+    G --> H[Webhook Handler adnanh/webhook]
     H --> I[Execute deploy-docker.sh Script]
 
     I --> J[Stop & Remove Old Docker Container]
