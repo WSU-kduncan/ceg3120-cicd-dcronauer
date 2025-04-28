@@ -591,7 +591,7 @@ First make sure that you add webhook.service file to this location ```/etc/syste
    - **Start** ```sudo systemctl start webhook.service```
    - **Stop** ```sudo systemctl stop webhook.service```
    - **Restart** ```sudo systemctl restart webhook.service```
-   - **Get Status** ``sudo systemctl status webhook.service```
+   - **Get Status** ```sudo systemctl status webhook.service```
 
 ### How to verify webhook.service is working
 
@@ -664,4 +664,4 @@ can this webhook be run in the background
 ```
 how to have dockerhub sent webhook request to ec2 instance
 ```
-# Part 3 - Project Description & Diagram
+
