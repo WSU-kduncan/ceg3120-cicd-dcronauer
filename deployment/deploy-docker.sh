@@ -3,17 +3,9 @@
 # Define container name
 CONTAINER_NAME="CI-CD-DOCKER"
 
-# Check if a container with the same name exists (running or stopped)
-EXISTING_CONTAINER=$(docker ps -a -q -f name=$CONTAINER_NAME)
-
-# If a container exists, stop and remove it
-if [ ! -z "$EXISTING_CONTAINER" ]; then
-  echo "Stopping and removing existing container: $CONTAINER_NAME"
-  sudo docker stop $EXISTING_CONTAINER
-  sudo docker rm -f $EXISTING_CONTAINER
-else
-  echo "No existing container with name $CONTAINER_NAME"
-fi
+echo "Stopping and removing existing container: $CONTAINER_NAME"
+sudo docker stop $CONTAINER_NAME
+sudo docker rm -f $CONTAINER_NAME
 
 # Pull the latest image (optional if you want to ensure it's the latest)
 echo "Pulling the latest image..."
