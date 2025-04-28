@@ -542,7 +542,7 @@ e109518942e7   dcronauer2025/cronauer-ceg3120:v1.1.0   "docker-entrypoint.s…" 
 
 ### Link to definition file
 
-[Github definition file](webhook-definition.json)
+[Github definition file](deployment/webhook-definition.json)
 
 
 ## Configure Payload Sender
@@ -597,7 +597,7 @@ First make sure that you add webhook.service file to this location ```/etc/syste
 
 ### Link to service file
 
-[Link to webhook.service](webhook.service)
+[Link to webhook.service](deployment/webhook.service)
 
 ## References Part 2
 
